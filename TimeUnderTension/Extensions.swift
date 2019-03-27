@@ -2,7 +2,7 @@
 //  UI+Extensions.swift
 //  TimeUnderTension
 //
-//  Created by devpair45 on 27/03/2019.
+//  Created by Mike Gopsill on 27/03/2019.
 //  Copyright © 2019 Mike Gopsill. All rights reserved.
 //
 
