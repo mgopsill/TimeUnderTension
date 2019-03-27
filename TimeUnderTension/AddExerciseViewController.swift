@@ -8,37 +8,53 @@
 
 import UIKit
 
-class AddExerciseViewController: UIViewController {
+struct Exercise {
+    let name: String
+    var weight: Double = 0.0
+    var time: TimeInterval = 0.0
+    var isRest: Bool = false
+}
+
+protocol AddExerciseDelegate {
+    func didSaveExercise(exercise: Exercise)
+}
+
+class AddExerciseViewController: UIViewController, AddExerciseDelegate {
     
     private let exerciseName = UITextField()
     private let weight = UITextField()
+    private let saveButton = UIButton()
+    
+    private let addExerciseView = AddExerciseView()
+    
+    var delegate: AddExerciseDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Add Exercise"
         view.backgroundColor = .white
+        addExerciseView.delegate = self
         
         setup()
     }
     
-    func setup() {
-        view.falsifyAutoresizingMask(for: exerciseName, weight)
-        view.addSubviews(exerciseName, weight)
-        
-        exerciseName.text = "Exercise"
-        exerciseName.textAlignment = .center
-        weight.text = "KG"
-        weight.textAlignment = .center
+    private func setup() {
+        view.addSubviews(addExerciseView)
+        view.falsifyAutoresizingMask(for: exerciseName, weight, saveButton, addExerciseView)
+        view.addSubviews(exerciseName, weight, saveButton)
         
         let constraints: [NSLayoutConstraint] = [
-            exerciseName.topAnchor.constraint(equalTo: view.topAnchor, constant: 100.0),
-            exerciseName.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            exerciseName.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            weight.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            weight.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            weight.topAnchor.constraint(equalTo: exerciseName.bottomAnchor, constant: 15.0)
+            addExerciseView.topAnchor.constraint(equalTo: view.topAnchor),
+            addExerciseView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addExerciseView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addExerciseView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    func didSaveExercise(exercise: Exercise) {
+        delegate?.didSaveExercise(exercise: exercise)
+        navigationController?.popViewController(animated: true)
     }
 }

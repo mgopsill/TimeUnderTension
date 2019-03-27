@@ -25,6 +25,8 @@ class TimerViewController: UIViewController {
     
     private var laps: [TimeInterval] = []
     
+    var exercises: [Exercise] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +81,7 @@ class TimerViewController: UIViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "X")
+        tableView.register(ExerciseWeightTimeCell.self, forCellReuseIdentifier: ExerciseWeightTimeCell.identifier)
     }
     
     private func setupConstraints() {
@@ -138,6 +141,9 @@ extension TimerViewController: StopwatchDelegate {
     }
     
     func handleLatestLap(interval: TimeInterval) {
+        if laps.count < exercises.count {
+            exercises[laps.count].time = interval
+        }
         laps.append(interval)
         tableView.reloadData()
     }
@@ -145,7 +151,11 @@ extension TimerViewController: StopwatchDelegate {
 
 extension TimerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return laps.count
+        if !exercises.isEmpty {
+            return exercises.count
+        } else {
+            return laps.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -156,8 +166,15 @@ extension TimerViewController: UITableViewDataSource {
             return cell
         }()
         
-        cell.detailTextLabel?.text = laps[indexPath.row].asStopwatchString
-        cell.textLabel?.text = laps[indexPath.row].asStopwatchString
+        if !exercises.isEmpty {
+            guard let newCell = tableView.dequeueReusableCell(withIdentifier: ExerciseWeightTimeCell.identifier, for: indexPath) as? ExerciseWeightTimeCell else { return UITableViewCell() }
+            newCell.configure(for: exercises[indexPath.row])
+            return newCell
+        } else {
+            cell.textLabel?.text = laps[indexPath.row].asStopwatchString
+            cell.detailTextLabel?.text = laps[indexPath.row].asStopwatchString
+        }
+        
         return cell
     }
 }

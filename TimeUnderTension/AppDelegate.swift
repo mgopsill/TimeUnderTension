@@ -16,17 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let tabBarController = UITabBarController()
-        let create = CreateWorkoutViewController()
-        let timer = TimerViewController()
-        
-        create.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
-        timer.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-        
-        let controllers = [create, timer]
-    
-        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
-        window?.rootViewController = tabBarController
+        let create = CreateWorkoutViewController() 
+        window?.rootViewController = UINavigationController(rootViewController: create)
         
         window?.makeKeyAndVisible()
         return true
