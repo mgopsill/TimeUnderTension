@@ -13,6 +13,7 @@
 		4D15C57D224B717E003F7672 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D15C57B224B717E003F7672 /* LaunchScreen.storyboard */; };
 		4D15C588224B717F003F7672 /* TimeUnderTensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C587224B717F003F7672 /* TimeUnderTensionTests.swift */; };
 		4D15C595224B8876003F7672 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C594224B8876003F7672 /* Stopwatch.swift */; };
+		EE55DC26224B95D500F3C37A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC25224B95D500F3C37A /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		4D15C587224B717F003F7672 /* TimeUnderTensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnderTensionTests.swift; sourceTree = "<group>"; };
 		4D15C589224B717F003F7672 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D15C594224B8876003F7672 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
+		EE55DC25224B95D500F3C37A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				4D15C579224B717E003F7672 /* Assets.xcassets */,
 				4D15C57B224B717E003F7672 /* LaunchScreen.storyboard */,
 				4D15C57E224B717E003F7672 /* Info.plist */,
+				EE55DC25224B95D500F3C37A /* Extensions.swift */,
 			);
 			path = TimeUnderTension;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				4D15C575224B717B003F7672 /* TimerViewController.swift in Sources */,
 				4D15C595224B8876003F7672 /* Stopwatch.swift in Sources */,
 				4D15C573224B717B003F7672 /* AppDelegate.swift in Sources */,
+				EE55DC26224B95D500F3C37A /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

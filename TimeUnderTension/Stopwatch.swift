@@ -15,11 +15,11 @@ enum StopwatchState {
 }
 
 protocol StopwatchDelegate {
-    func updateView(with seconds: TimeInterval)
+    func updateView(with interval: TimeInterval)
+    func handleLatestLap(interval: TimeInterval)
 }
 
 class Stopwatch {
-    var seconds = 0
     var elapsedTime: TimeInterval = 0.0
     var timer = Timer()
     var state: StopwatchState = .notStarted
@@ -37,11 +37,8 @@ class Stopwatch {
     }
     
     @objc private func updateTimer() {
-//        seconds += 1
         elapsedTime += 0.1
-        if let delegate = delegate {
-            delegate.updateView(with: elapsedTime)
-        }
+        delegate?.updateView(with: elapsedTime)
     }
     
     public func pause() {
@@ -53,5 +50,12 @@ class Stopwatch {
         timer.invalidate()
         elapsedTime = 0.0
         state = .notStarted
+        delegate?.updateView(with: elapsedTime)
+    }
+    
+    public func lap() {
+        delegate?.handleLatestLap(interval: elapsedTime)
+        reset()
+        start()
     }
 }

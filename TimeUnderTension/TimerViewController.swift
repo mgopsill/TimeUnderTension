@@ -10,7 +10,7 @@ import UIKit
 
 class TimerViewController: UIViewController {
     
-    private var stopWatch = Stopwatch() 
+    private var stopWatch = Stopwatch()
     private var timer: Timer?
     
     private let timerLabel = UILabel()
@@ -21,46 +21,64 @@ class TimerViewController: UIViewController {
     
     private let tableView = UITableView()
     
+    private let stopWatchDefaultString = 0.asStopwatchString
+    
+    private var laps: [TimeInterval] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Stopwatch"
         view.backgroundColor = .white
+        
+        addViews()
+        configureButtons()
         setupViews()
         setupConstraints()
         
         stopWatch.delegate = self
     }
     
-    private func setupViews() {
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        timerLabel.backgroundColor = .red
-        timerLabel.text = stringFromTimeInterval(interval: 0)
-        timerLabel.textAlignment = .center
-        timerLabel.font = UIFont.systemFont(ofSize: 80.0)
-        
-        buttonsView.translatesAutoresizingMaskIntoConstraints = false
+    private func addViews() {
+        view.falsifyAutoresizingMask(for: timerLabel, buttonsView, resetLapButton, startStopButton, tableView)
+        view.addSubviews(timerLabel, buttonsView, tableView)
+    }
+    
+    private func configureButtons() {
         buttonsView.backgroundColor = .blue
-        
-        resetLapButton.translatesAutoresizingMaskIntoConstraints = false
-        startStopButton.translatesAutoresizingMaskIntoConstraints = false
+
         buttonsView.addSubview(resetLapButton)
         buttonsView.addSubview(startStopButton)
+        
         resetLapButton.backgroundColor = .black
         startStopButton.backgroundColor = .black
         
         resetLapButton.setTitle("Reset", for: .normal)
         resetLapButton.addTarget(self, action: #selector(resetStopwatch), for: .touchUpInside)
-
-        startStopButton.setTitle("Start", for: .normal)
-        startStopButton.addTarget(self, action: #selector(startStopwatch), for: .touchUpInside)
         
+        startStopButton.setTitle("Start", for: .normal)
+        startStopButton.setTitle("Stop", for: .selected)
+        startStopButton.addTarget(self, action: #selector(startStopwatch), for: .touchUpInside)
+    }
+    
+    private func setupViews() {
+        setupTimerLabel()
+        setupTableView()
+    }
+    
+    private func setupTimerLabel() {
+        timerLabel.backgroundColor = .red
+        timerLabel.text = stopWatchDefaultString
+        timerLabel.textAlignment = .center
+        timerLabel.font = UIFont.systemFont(ofSize: 80.0)
+    }
+    
+    private func setupTableView() {
         tableView.backgroundColor = .gray
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
-        
-        view.addSubview(timerLabel)
-        view.addSubview(buttonsView)
-        view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "X")
     }
     
     private func setupConstraints() {
@@ -94,36 +112,52 @@ class TimerViewController: UIViewController {
     @objc func startStopwatch() {
         if stopWatch.state != .running {
             stopWatch.start()
-            startStopButton.setTitle("Stop", for: .normal)
+            startStopButton.isSelected = true
+            resetLapButton.setTitle("Lap", for: .normal)
         } else if stopWatch.state == .running {
             stopWatch.pause()
-            startStopButton.setTitle("Start", for: .normal)
+            startStopButton.isSelected = false
+            resetLapButton.setTitle("Reset", for: .normal)
         }
     }
     
     @objc func resetStopwatch() {
         if stopWatch.state != .running {
             stopWatch.reset()
-            timerLabel.text = stringFromTimeInterval(interval: 0)
-            startStopButton.setTitle("Start", for: .normal)
+            laps.removeAll()
+            tableView.reloadData()
+        } else if stopWatch.state == .running {
+            stopWatch.lap()
         }
     }
 }
 
 extension TimerViewController: StopwatchDelegate {
-    func updateView(with seconds: TimeInterval) {
-        timerLabel.text = stringFromTimeInterval(interval: seconds)
+    func updateView(with interval: TimeInterval) {
+        timerLabel.text = interval.asStopwatchString
     }
+    
+    func handleLatestLap(interval: TimeInterval) {
+        laps.append(interval)
+        tableView.reloadData()
+    }
+}
 
-    func stringFromTimeInterval(interval: TimeInterval) -> String {
+extension TimerViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return laps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else {
+                return UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "UITableViewCell")
+            }
+            return cell
+        }()
         
-        let ti = NSInteger(interval)
-        
-        let ms = Int((interval.truncatingRemainder(dividingBy: 1)) * 10)
-        
-        let seconds = ti % 60
-        let minutes = (ti / 60) % 60
-        
-        return String(format: "%0.2d:%0.2d.%0.1d",minutes,seconds,ms)
+        cell.detailTextLabel?.text = laps[indexPath.row].asStopwatchString
+        cell.textLabel?.text = laps[indexPath.row].asStopwatchString
+        return cell
     }
 }
