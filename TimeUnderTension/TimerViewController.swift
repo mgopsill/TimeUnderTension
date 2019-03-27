@@ -10,7 +10,7 @@ import UIKit
 
 class TimerViewController: UIViewController {
     
-    private var stopWatch = Stopwatch()
+    private var stopWatch = Stopwatch() 
     private var timer: Timer?
     
     private let timerLabel = UILabel()
