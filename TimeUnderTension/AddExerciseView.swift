@@ -36,9 +36,9 @@ class AddExerciseView: UIView {
         falsifyAutoresizingMask(for: exerciseName, weight, saveButton)
         addSubviews(exerciseName, weight, saveButton)
         
-//        exerciseName.text = "Exercise"
+        exerciseName.placeholder = "Exercise Name"
         exerciseName.textAlignment = .center
-//        weight.text = "0.0"
+        weight.placeholder = "0.0kg"
         weight.textAlignment = .center
         
         saveButton.setTitle("Save", for: .normal)
