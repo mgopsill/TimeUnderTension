@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let create = CreateWorkoutViewController() 
-        window?.rootViewController = UINavigationController(rootViewController: create)
+        let first = FirstViewController()
+        window?.rootViewController = UINavigationController(rootViewController: first)
         
         window?.makeKeyAndVisible()
         return true

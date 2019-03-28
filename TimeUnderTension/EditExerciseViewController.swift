@@ -29,7 +29,7 @@ class EditExerciseViewController: UIViewController, AddExerciseDelegate {
         super.viewDidLoad()
         
         title = "Edit Exercise"
-        view.backgroundColor = .gray
+        view.backgroundColor = .clear
         addExerciseView.delegate = self
         addExerciseView.backgroundColor = .white
         

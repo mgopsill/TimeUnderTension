@@ -73,7 +73,7 @@ class CreateWorkoutViewController: UITableViewController {
 
 extension CreateWorkoutViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercises.count
+        return exercises.count + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,15 +83,23 @@ extension CreateWorkoutViewController {
             }
             return cell
         }()
-
-        cell.textLabel?.text = exercises[indexPath.row].name
-        cell.detailTextLabel?.text = String(exercises[indexPath.row].weight)
-        return cell
+        
+        if indexPath.row == 0 {
+            cell.textLabel?.text = "Exercise"
+            cell.detailTextLabel?.text = "Weight"
+            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
+            cell.detailTextLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
+            return cell
+        } else {
+            cell.textLabel?.text = exercises[indexPath.row - 1].name
+            cell.detailTextLabel?.text = String(exercises[indexPath.row - 1].weight) + "kg"
+            return cell
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.exercises.remove(at: indexPath.row)
+        if editingStyle == .delete && indexPath.row != 0 {
+            self.exercises.remove(at: indexPath.row - 1)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

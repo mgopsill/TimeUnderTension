@@ -32,7 +32,7 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Stopwatch"
+        title = "Workout Timer"
         view.backgroundColor = .white
         
         addViews()
@@ -49,13 +49,17 @@ class TimerViewController: UIViewController {
     }
     
     private func configureButtons() {
-        buttonsView.backgroundColor = .blue
-
         buttonsView.addSubview(resetLapButton)
         buttonsView.addSubview(startStopButton)
-        
+
         resetLapButton.backgroundColor = .black
+        resetLapButton.layer.cornerRadius = 50.0
+        resetLapButton.layer.borderWidth = 0.1
+        resetLapButton.layer.borderColor = UIColor.black.cgColor
         startStopButton.backgroundColor = .black
+        startStopButton.layer.cornerRadius = 50.0
+        startStopButton.layer.borderWidth = 0.1
+        startStopButton.layer.borderColor = UIColor.black.cgColor
         
         resetLapButton.setTitle("Reset", for: .normal)
         resetLapButton.addTarget(self, action: #selector(resetStopwatch), for: .touchUpInside)
@@ -71,14 +75,12 @@ class TimerViewController: UIViewController {
     }
     
     private func setupTimerLabel() {
-        timerLabel.backgroundColor = .red
         timerLabel.text = stopWatchDefaultString
         timerLabel.textAlignment = .center
         timerLabel.font = UIFont.systemFont(ofSize: 80.0)
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = .gray
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
         tableView.dataSource = self
@@ -95,19 +97,19 @@ class TimerViewController: UIViewController {
             timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             timerLabel.heightAnchor.constraint(equalToConstant: view.frame.height / 2.4),
-            buttonsView.topAnchor.constraint(equalTo: timerLabel.bottomAnchor),
+            buttonsView.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 5.0),
             buttonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             buttonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             buttonsView.heightAnchor.constraint(equalToConstant: 100.0),
-            resetLapButton.leadingAnchor.constraint(equalTo: buttonsView.leadingAnchor),
+            resetLapButton.leadingAnchor.constraint(equalTo: buttonsView.leadingAnchor, constant: 20.0),
             resetLapButton.topAnchor.constraint(equalTo: buttonsView.topAnchor),
             resetLapButton.bottomAnchor.constraint(equalTo: buttonsView.bottomAnchor),
             resetLapButton.widthAnchor.constraint(equalToConstant: 100.0),
-            startStopButton.trailingAnchor.constraint(equalTo: buttonsView.trailingAnchor),
+            startStopButton.trailingAnchor.constraint(equalTo: buttonsView.trailingAnchor, constant: -20.0),
             startStopButton.topAnchor.constraint(equalTo: buttonsView.topAnchor),
             startStopButton.bottomAnchor.constraint(equalTo: buttonsView.bottomAnchor),
             startStopButton.widthAnchor.constraint(equalToConstant: 100.0),
-            tableView.topAnchor.constraint(equalTo: buttonsView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: buttonsView.bottomAnchor, constant: 5.0),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)

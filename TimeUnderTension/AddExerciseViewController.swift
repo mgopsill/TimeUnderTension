@@ -40,7 +40,7 @@ class AddExerciseViewController: UIViewController, AddExerciseDelegate {
         view.falsifyAutoresizingMask(for: addExerciseView)
         
         let constraints: [NSLayoutConstraint] = [
-            addExerciseView.topAnchor.constraint(equalTo: view.topAnchor),
+            addExerciseView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200.0),
             addExerciseView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             addExerciseView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             addExerciseView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
