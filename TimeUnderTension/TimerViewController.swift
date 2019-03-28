@@ -13,6 +13,8 @@ class TimerViewController: UIViewController {
     private var stopWatch = Stopwatch()
     private var timer: Timer?
     
+    private var selectedCellIndex: Int = 0
+    
     private let timerLabel = UILabel()
     private let buttonsView = UIView()
     
@@ -80,6 +82,7 @@ class TimerViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "X")
         tableView.register(ExerciseWeightTimeCell.self, forCellReuseIdentifier: ExerciseWeightTimeCell.identifier)
     }
@@ -176,5 +179,29 @@ extension TimerViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension TimerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCellIndex = indexPath.row
+        let exercise = exercises[selectedCellIndex]
+        let vc = EditExerciseViewController(exercise: exercise)
+        vc.delegate = self
+        navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.exercises.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+}
+
+extension TimerViewController: AddExerciseDelegate {
+    func didSaveExercise(exercise: Exercise) {
+        exercises[selectedCellIndex] = exercise
+        tableView.reloadData()
     }
 }

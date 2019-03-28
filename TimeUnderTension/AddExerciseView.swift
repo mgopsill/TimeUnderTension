@@ -15,9 +15,16 @@ class AddExerciseView: UIView {
     private let saveButton = UIButton()
     
     var delegate: AddExerciseDelegate?
+    var exercise: Exercise?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(exercise: Exercise?) {
+        super.init(frame: CGRect.zero)
+
+        self.exercise = exercise
+        if let exercise = exercise {
+            exerciseName.text = exercise.name
+            weight.text = String(exercise.weight)
+        }
         setup()
     }
     
@@ -29,9 +36,9 @@ class AddExerciseView: UIView {
         falsifyAutoresizingMask(for: exerciseName, weight, saveButton)
         addSubviews(exerciseName, weight, saveButton)
         
-        exerciseName.text = "Exercise"
+//        exerciseName.text = "Exercise"
         exerciseName.textAlignment = .center
-        weight.text = "0.0"
+//        weight.text = "0.0"
         weight.textAlignment = .center
         
         saveButton.setTitle("Save", for: .normal)

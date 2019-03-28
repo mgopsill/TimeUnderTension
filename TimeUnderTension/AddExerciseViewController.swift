@@ -21,11 +21,7 @@ protocol AddExerciseDelegate {
 
 class AddExerciseViewController: UIViewController, AddExerciseDelegate {
     
-    private let exerciseName = UITextField()
-    private let weight = UITextField()
-    private let saveButton = UIButton()
-    
-    private let addExerciseView = AddExerciseView()
+    private let addExerciseView = AddExerciseView(exercise: nil)
     
     var delegate: AddExerciseDelegate?
     
@@ -41,8 +37,7 @@ class AddExerciseViewController: UIViewController, AddExerciseDelegate {
     
     private func setup() {
         view.addSubviews(addExerciseView)
-        view.falsifyAutoresizingMask(for: exerciseName, weight, saveButton, addExerciseView)
-        view.addSubviews(exerciseName, weight, saveButton)
+        view.falsifyAutoresizingMask(for: addExerciseView)
         
         let constraints: [NSLayoutConstraint] = [
             addExerciseView.topAnchor.constraint(equalTo: view.topAnchor),
