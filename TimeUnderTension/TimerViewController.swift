@@ -61,10 +61,14 @@ class TimerViewController: UIViewController {
         resetLapButton.layer.cornerRadius = 50.0
         resetLapButton.layer.borderWidth = 0.1
         resetLapButton.layer.borderColor = UIColor.black.cgColor
+        resetLapButton.assignDefaultButtonAnimation()
+        resetLapButton.assignBlinkAnimation()
         startStopButton.backgroundColor = .black
         startStopButton.layer.cornerRadius = 50.0
         startStopButton.layer.borderWidth = 0.1
         startStopButton.layer.borderColor = UIColor.black.cgColor
+        startStopButton.assignDefaultButtonAnimation()
+        startStopButton.assignBlinkAnimation()
         
         resetLapButton.setTitle("Reset", for: .normal)
         resetLapButton.addTarget(self, action: #selector(resetStopwatch), for: .touchUpInside)
@@ -148,6 +152,16 @@ class TimerViewController: UIViewController {
 extension TimerViewController: StopwatchDelegate {
     func updateView(with interval: TimeInterval) {
         timerLabel.text = interval.asStopwatchString
+        let numberOfCells = (!exercises.isEmpty ? exercises.count : laps.count) - 1
+        if exercises.isEmpty {
+            guard let cell = tableView.cellForRow(at: IndexPath(row: numberOfCells, section: 0)) else { return }
+            cell.textLabel?.text = interval.asStopwatchString
+            cell.detailTextLabel?.text = interval.asStopwatchString
+        }
+        guard let cell = tableView.cellForRow(at: IndexPath(row: numberOfCells, section: 0)) as? ExerciseWeightTimeCell else { return }
+        var exercise = exercises[numberOfCells]
+        exercise.time = interval
+        cell.configure(for: exercise)
     }
     
     func handleLatestLap(interval: TimeInterval) {
@@ -203,8 +217,13 @@ extension TimerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.exercises.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if exercises.isEmpty {
+                self.laps.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                self.exercises.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
 }
@@ -213,5 +232,19 @@ extension TimerViewController: EditExerciseDelegate {
     func didSaveExercise(exercise: Exercise) {
         exercises[selectedCellIndex] = exercise
         tableView.reloadData()
+    }
+}
+
+extension UIButton {
+    func assignBlinkAnimation() {
+        addTarget(self, action: #selector(blink), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
+    }
+    
+    @objc private func blink() {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveLinear, .autoreverse], animations: {
+            self.alpha = 0.5
+        }, completion: { bool in
+            self.alpha = 1.0
+        })
     }
 }

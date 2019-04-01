@@ -11,7 +11,7 @@ import UIKit
 class CreateWorkoutViewController: UITableViewController {
     
     private var exercises: [Exercise]
-    private let startButton = Factory.Button.blueButton
+    private let startButton = Factory.Button.defaultButton(color: .blue)
     private var selectedCellIndex: Int?
     
     init(exercises: [Exercise]?) {
@@ -83,8 +83,7 @@ class CreateWorkoutViewController: UITableViewController {
 
 extension CreateWorkoutViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: Stop using TableViewCell as header
-        return exercises.count + 1
+        return exercises.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,31 +94,38 @@ extension CreateWorkoutViewController {
             return cell
         }()
         
-        if indexPath.row == 0 {
-            cell.textLabel?.text = "Exercise"
-            cell.detailTextLabel?.text = "Weight"
-            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
-            cell.detailTextLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
-            return cell
-        } else {
-            // TODO: Stop using TableViewCell as header
-            cell.textLabel?.text = exercises[indexPath.row - 1].name
-            cell.detailTextLabel?.text = String(exercises[indexPath.row - 1].weight) + "kg"
-            return cell
-        }
+        cell.textLabel?.text = exercises[indexPath.row].name
+        cell.detailTextLabel?.text = String(exercises[indexPath.row].weight) + "kg"
+        return cell
+        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete && indexPath.row != 0 {
-            self.exercises.remove(at: indexPath.row - 1)
+        if editingStyle == .delete {
+            self.exercises.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row != 0 { // TODO: Remove the header cell
-            selectedCellIndex = indexPath.row - 1
-            displayEditExercise(with: exercises[indexPath.row - 1])
+        selectedCellIndex = indexPath.row
+        displayEditExercise(with: exercises[indexPath.row ])
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let headerView = WorkoutHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0))
+            return headerView
+        } else {
+            return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 30.0
+        } else {
+            return 0.0
         }
     }
 }
@@ -132,5 +138,39 @@ extension CreateWorkoutViewController: EditExerciseDelegate {
             exercises.append(exercise)
         }
         tableView.reloadData()
+    }
+}
+
+
+class WorkoutHeaderView: UIView {
+    private let exerciseNameLabel = UILabel()
+    private let weightLabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = UIColor(white: 0.97, alpha: 1.0)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+        exerciseNameLabel.text = "Exercise Name"
+        exerciseNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+        weightLabel.text = "Weight"
+        weightLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+        addSubviews(exerciseNameLabel, weightLabel)
+        falsifyAutoresizingMask(for: exerciseNameLabel, weightLabel)
+        let constraints: [NSLayoutConstraint] = [
+            exerciseNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            exerciseNameLabel.topAnchor.constraint(equalTo: topAnchor),
+            exerciseNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            weightLabel.topAnchor.constraint(equalTo: topAnchor),
+            weightLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            weightLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
 }

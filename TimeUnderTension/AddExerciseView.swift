@@ -14,9 +14,10 @@ protocol EditExerciseDelegate {
 
 class AddExerciseView: UIView {
 
+    private let titleLabel = UILabel()
     private let exerciseName = UITextField()
     private let weight = UITextField() // TODO: when updating weight only allow numbers
-    private let saveButton = Factory.Button.blueButton
+    private let saveButton = Factory.Button.defaultButton(color: .blue)
     private let kgSuffix = " kg"
     
     var delegate: EditExerciseDelegate?
@@ -29,6 +30,9 @@ class AddExerciseView: UIView {
         if let exercise = exercise {
             exerciseName.text = exercise.name
             weight.text = String(exercise.weight) + kgSuffix
+            titleLabel.text = "Edit Exercise"
+        } else {
+            titleLabel.text = "Add Exercise"
         }
         setup()
     }
@@ -38,8 +42,15 @@ class AddExerciseView: UIView {
     }
     
     private func setup() {
-        falsifyAutoresizingMask(for: exerciseName, weight, saveButton)
-        addSubviews(exerciseName, weight, saveButton)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
+        
+        let exerciseLabel = UILabel()
+        let weightLabel = UILabel()
+        exerciseLabel.text = "Exercise"
+        weightLabel.text = "Weight"
+        
+        falsifyAutoresizingMask(for: titleLabel, exerciseLabel, weightLabel, exerciseName, weight, saveButton)
+        addSubviews(titleLabel, exerciseLabel, weightLabel, exerciseName, weight, saveButton)
         
         exerciseName.placeholder = "Exercise Name"
         exerciseName.textAlignment = .center
@@ -62,16 +73,27 @@ class AddExerciseView: UIView {
         saveButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
         
         let constraints: [NSLayoutConstraint] = [
-            exerciseName.topAnchor.constraint(equalTo: topAnchor, constant: 100.0),
-            exerciseName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Factory.Insets.leadingInset),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 40.0),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            exerciseLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40.0),
+            exerciseLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Factory.Insets.leadingInset),
+            exerciseLabel.heightAnchor.constraint(equalToConstant: 40.0),
+            exerciseName.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40.0),
             exerciseName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Factory.Insets.trailingInset),
-            weight.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Factory.Insets.leadingInset),
+            exerciseName.leadingAnchor.constraint(equalTo: exerciseLabel.trailingAnchor, constant: 30.0),
+            exerciseName.heightAnchor.constraint(equalToConstant: 40.0),
+            weightLabel.topAnchor.constraint(equalTo: exerciseLabel.bottomAnchor, constant: 30.0),
+            weightLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Factory.Insets.leadingInset),
+            weightLabel.widthAnchor.constraint(equalToConstant: 60.0),
+            weightLabel.heightAnchor.constraint(equalToConstant: 40.0),
+            weight.topAnchor.constraint(equalTo: exerciseName.bottomAnchor, constant: 30.0),
             weight.trailingAnchor.constraint(equalTo: trailingAnchor,  constant: Factory.Insets.trailingInset),
-            weight.topAnchor.constraint(equalTo: exerciseName.bottomAnchor, constant: 15.0),
-            saveButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40.0),
-            saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40.0),
-            saveButton.topAnchor.constraint(equalTo: weight.bottomAnchor, constant: 15.0),
-            saveButton.heightAnchor.constraint(equalToConstant: 50.0)
+            weight.leadingAnchor.constraint(equalTo: weightLabel.trailingAnchor, constant: 30.0),
+            weight.heightAnchor.constraint(equalToConstant: 40.0),
+            saveButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Factory.Insets.leadingInset),
+            saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Factory.Insets.trailingInset),
+            saveButton.topAnchor.constraint(equalTo: weight.bottomAnchor, constant: 40.0),
+            saveButton.heightAnchor.constraint(equalToConstant: 40.0)
         ]
         NSLayoutConstraint.activate(constraints)
     }

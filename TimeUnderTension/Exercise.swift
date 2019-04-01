@@ -54,14 +54,8 @@ extension Exercise {
 
 
 // MARK: General TODOs
-// TODO: Animate blue button taps
-// TODO: Space between kg on Timer View
-// TODO: "-" Dash for text on rest in Timer View
-// TODO: As Timer runs update the exercise in the list view
-// TODO: Animate Stopwatch Taps
+// TODO: As Timer runs update the exercise in the list view for laps
 // TODO: Fix backgrounding issue with timer being incorrect
 // TODO: Save workouts
 // TODO: View historical workouts
 // TODO: Load a historical workout
-// TODO: In Edit View, add labels to the textFields
-// TODO: Remove the header in tableViewCells

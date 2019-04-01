@@ -21,8 +21,8 @@ class HomeViewController: UIViewController {
     }
     
     private func setup() {
-        let createWorkoutButton = Factory.Button.blueButton
-        let defaultWorkoutButton = Factory.Button.blueButton
+        let createWorkoutButton = Factory.Button.defaultButton(color: .blue)
+        let defaultWorkoutButton = Factory.Button.defaultButton(color: .gray)
         
         view.addSubviews(createWorkoutButton, defaultWorkoutButton)
         view.falsifyAutoresizingMask(for: createWorkoutButton, defaultWorkoutButton)

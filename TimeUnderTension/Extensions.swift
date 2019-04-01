@@ -35,14 +35,42 @@ struct Factory {
         static let trailingInset: CGFloat = -50.0
     }
     
-    struct Button {        
-        static var blueButton: UIButton {
-            let blueButton = UIButton()
-            blueButton.backgroundColor = .blue
-            blueButton.layer.borderColor = UIColor.blue.cgColor
-            blueButton.layer.borderWidth = 0.5
-            blueButton.layer.cornerRadius = 5.0
-            return blueButton
+    struct Button {
+        static func defaultButton(color: UIColor) -> UIButton {
+            let defaultButton = UIButton()
+            defaultButton.backgroundColor = color
+            defaultButton.layer.borderColor = color.cgColor
+            defaultButton.layer.borderWidth = 0.5
+            defaultButton.layer.cornerRadius = 5.0
+            defaultButton.assignDefaultButtonAnimation()
+            return defaultButton
         }
+    }
+}
+
+extension UIButton {
+    
+    func assignDefaultButtonAnimation() {
+        addTarget(self, action: #selector(animateDown), for: [.touchDown, .touchDragEnter])
+        addTarget(self, action: #selector(animateUp), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
+    }
+    
+    @objc private func animateDown(sender: UIButton) {
+        animate(sender, transform: CGAffineTransform.identity.scaledBy(x: 0.95, y: 0.95))
+    }
+    
+    @objc private func animateUp(sender: UIButton) {
+        animate(sender, transform: .identity)
+    }
+    
+    private func animate(_ button: UIButton, transform: CGAffineTransform) {
+        UIView.animate(withDuration: 0.4,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 3,
+                       options: [.curveEaseInOut],
+                       animations: {
+                        button.transform = transform
+        }, completion: nil)
     }
 }

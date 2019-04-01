@@ -48,7 +48,13 @@ class ExerciseWeightTimeCell: UITableViewCell {
     
     func configure(for exercise: Exercise) {
         exerciseNameLabel.text = exercise.name
-        weightLabel.text = String(exercise.weight) + "kg"
+        weightLabel.text = exercise.weight.asWeightString
         timeLabel.text = exercise.time.asStopwatchString
+    }
+}
+
+extension Double {
+    var asWeightString: String {
+        return self == 0.0 ? "" : String(self) + " kg"
     }
 }
