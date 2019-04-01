@@ -11,7 +11,7 @@ import UIKit
 class CreateWorkoutViewController: UITableViewController {
     
     private var exercises: [Exercise] = []
-    private let startButton = UIButton()
+    private let startButton = Factory.Button.blueButton
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,58 +21,54 @@ class CreateWorkoutViewController: UITableViewController {
         
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightNavBarTapped))
         navigationItem.rightBarButtonItem = rightBarButton
-        
-        startButton.backgroundColor = .blue
-        startButton.setTitle("Start", for: .normal)
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-        startButton.addTarget(self, action: #selector(startTapped), for: .touchUpInside)
+        setupFloatingStartButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.keyWindow?.addSubview(startButton)
-        
-        let constraints: [NSLayoutConstraint] = [
-            startButton.leadingAnchor.constraint(equalTo: UIApplication.shared.keyWindow!.leadingAnchor, constant: 40.0),
-            startButton.trailingAnchor.constraint(equalTo: UIApplication.shared.keyWindow!.trailingAnchor, constant: -40.0),
-            startButton.heightAnchor.constraint(equalToConstant: 80.0),
-            startButton.bottomAnchor.constraint(equalTo: UIApplication.shared.keyWindow!.bottomAnchor, constant: -100.0)
-        ]
-        NSLayoutConstraint.activate(constraints)
+        constrainFloatingStartButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         startButton.removeFromSuperview()
     }
+    
+    private func setupFloatingStartButton() {
+        startButton.setTitle("Start", for: .normal)
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+        startButton.addTarget(self, action: #selector(startTapped), for: .touchUpInside)
+    }
+    
+    private func constrainFloatingStartButton() {
+        UIApplication.shared.keyWindow?.addSubview(startButton)
+        
+        let constraints: [NSLayoutConstraint] = [
+            startButton.leadingAnchor.constraint(equalTo: UIApplication.shared.keyWindow!.leadingAnchor, constant: Factory.Insets.leadingInset),
+            startButton.trailingAnchor.constraint(equalTo: UIApplication.shared.keyWindow!.trailingAnchor, constant: Factory.Insets.trailingInset),
+            startButton.heightAnchor.constraint(equalToConstant: 60.0),
+            startButton.bottomAnchor.constraint(equalTo: UIApplication.shared.keyWindow!.bottomAnchor, constant: -100.0)
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
 
     @objc func rightNavBarTapped() {
-        let addController = AddExerciseViewController()
-        addController.delegate = self
-        navigationController?.pushViewController(addController, animated: true)
+        let addExerciseViewController = AddExerciseViewController()
+        addExerciseViewController.delegate = self
+        navigationController?.pushViewController(addExerciseViewController, animated: true)
     }
     
     @objc func startTapped() {
-        let timer = TimerViewController()
-        
-        var newArray: [Exercise] = []
-        for (index, exercise) in exercises.enumerated() {
-            if index != exercises.count - 1 {
-                let rest = Exercise(name: "Rest", weight: 0.0, time: 0.0, isRest: true)
-                newArray.append(exercise)
-                newArray.append(rest)
-            } else {
-                newArray.append(exercise)
-            }
-        }
-        
-        timer.exercises = newArray
-        navigationController?.pushViewController(timer, animated: true)
+        let timerViewController = TimerViewController()
+        timerViewController.exercises = exercises.asExercisesWithRest
+        // TODO: Inject the exercises rather than assign them
+        navigationController?.pushViewController(timerViewController, animated: true)
     }
 }
 
 extension CreateWorkoutViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // TODO: Stop using TableViewCell as header
         return exercises.count + 1
     }
     
@@ -103,6 +99,8 @@ extension CreateWorkoutViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
+    // TODO: Ability to edit exercise from this view controller
 }
 
 extension CreateWorkoutViewController: AddExerciseDelegate {

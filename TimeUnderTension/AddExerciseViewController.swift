@@ -8,13 +8,6 @@
 
 import UIKit
 
-struct Exercise {
-    let name: String
-    var weight: Double = 0.0
-    var time: TimeInterval = 0.0
-    var isRest: Bool = false
-}
-
 protocol AddExerciseDelegate {
     func didSaveExercise(exercise: Exercise)
 }

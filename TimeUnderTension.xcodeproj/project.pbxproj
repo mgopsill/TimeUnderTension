@@ -14,7 +14,8 @@
 		4D15C588224B717F003F7672 /* TimeUnderTensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C587224B717F003F7672 /* TimeUnderTensionTests.swift */; };
 		4D15C595224B8876003F7672 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C594224B8876003F7672 /* Stopwatch.swift */; };
 		4D3772F8224CB52900923F23 /* EditExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3772F7224CB52900923F23 /* EditExerciseViewController.swift */; };
-		4DB2A7DE224CDAF100C8E290 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB2A7DD224CDAF100C8E290 /* FirstViewController.swift */; };
+		4DB2A7DE224CDAF100C8E290 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB2A7DD224CDAF100C8E290 /* HomeViewController.swift */; };
+		EE1A7E952251FC32000615F9 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A7E942251FC32000615F9 /* Exercise.swift */; };
 		EE55DC26224B95D500F3C37A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC25224B95D500F3C37A /* Extensions.swift */; };
 		EE55DC28224BA2E100F3C37A /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC27224BA2E100F3C37A /* CreateWorkoutViewController.swift */; };
 		EE55DC2A224BA82300F3C37A /* AddExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC29224BA82300F3C37A /* AddExerciseViewController.swift */; };
@@ -44,7 +45,8 @@
 		4D15C589224B717F003F7672 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D15C594224B8876003F7672 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		4D3772F7224CB52900923F23 /* EditExerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseViewController.swift; sourceTree = "<group>"; };
-		4DB2A7DD224CDAF100C8E290 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		4DB2A7DD224CDAF100C8E290 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		EE1A7E942251FC32000615F9 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		EE55DC25224B95D500F3C37A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EE55DC27224BA2E100F3C37A /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
 		EE55DC29224BA82300F3C37A /* AddExerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseViewController.swift; sourceTree = "<group>"; };
@@ -92,8 +94,9 @@
 			isa = PBXGroup;
 			children = (
 				4D15C572224B717B003F7672 /* AppDelegate.swift */,
-				4DB2A7DD224CDAF100C8E290 /* FirstViewController.swift */,
+				4DB2A7DD224CDAF100C8E290 /* HomeViewController.swift */,
 				EE55DC27224BA2E100F3C37A /* CreateWorkoutViewController.swift */,
+				EE1A7E942251FC32000615F9 /* Exercise.swift */,
 				4D15C574224B717B003F7672 /* TimerViewController.swift */,
 				EE55DC2B224BBF7C00F3C37A /* ExerciseWeightTimeCell.swift */,
 				EE55DC29224BA82300F3C37A /* AddExerciseViewController.swift */,
@@ -222,7 +225,8 @@
 				4D15C575224B717B003F7672 /* TimerViewController.swift in Sources */,
 				4D15C595224B8876003F7672 /* Stopwatch.swift in Sources */,
 				EE55DC2E224BC97E00F3C37A /* AddExerciseView.swift in Sources */,
-				4DB2A7DE224CDAF100C8E290 /* FirstViewController.swift in Sources */,
+				4DB2A7DE224CDAF100C8E290 /* HomeViewController.swift in Sources */,
+				EE1A7E952251FC32000615F9 /* Exercise.swift in Sources */,
 				EE55DC28224BA2E100F3C37A /* CreateWorkoutViewController.swift in Sources */,
 				4D15C573224B717B003F7672 /* AppDelegate.swift in Sources */,
 				EE55DC26224B95D500F3C37A /* Extensions.swift in Sources */,
