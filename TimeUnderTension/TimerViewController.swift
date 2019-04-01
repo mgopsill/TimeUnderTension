@@ -11,23 +11,26 @@ import UIKit
 class TimerViewController: UIViewController {
     
     private var stopWatch = Stopwatch()
-    private var timer: Timer?
-    
     private var selectedCellIndex: Int = 0
+    private var laps: [TimeInterval] = []
+    private var exercises: [Exercise]
     
     private let timerLabel = UILabel()
     private let buttonsView = UIView()
-    
     private let resetLapButton = UIButton()
     private let startStopButton = UIButton()
-    
     private let tableView = UITableView()
     
     private let stopWatchDefaultString = 0.asStopwatchString
     
-    private var laps: [TimeInterval] = []
+    init(exercises: [Exercise]? = nil) {
+        self.exercises = exercises ?? []
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    var exercises: [Exercise] = []
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

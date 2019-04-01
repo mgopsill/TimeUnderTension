@@ -59,9 +59,7 @@ class CreateWorkoutViewController: UITableViewController {
     }
     
     @objc func startTapped() {
-        let timerViewController = TimerViewController()
-        timerViewController.exercises = exercises.asExercisesWithRest
-        // TODO: Inject the exercises rather than assign them
+        let timerViewController = TimerViewController(exercises: exercises.asExercisesWithRest)
         navigationController?.pushViewController(timerViewController, animated: true)
     }
 }
