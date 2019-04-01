@@ -10,9 +10,18 @@ import UIKit
 
 class CreateWorkoutViewController: UITableViewController {
     
-    private var exercises: [Exercise] = []
+    private var exercises: [Exercise]
     private let startButton = Factory.Button.blueButton
     private var selectedCellIndex: Int?
+    
+    init(exercises: [Exercise]?) {
+        self.exercises = exercises ?? []
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,7 +122,6 @@ extension CreateWorkoutViewController {
             displayEditExercise(with: exercises[indexPath.row - 1])
         }
     }
-    // TODO: Ability to edit exercise from this view controller
 }
 
 extension CreateWorkoutViewController: EditExerciseDelegate {

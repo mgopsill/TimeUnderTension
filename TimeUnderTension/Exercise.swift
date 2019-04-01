@@ -39,3 +39,14 @@ extension Array where Element == Exercise {
         return newArray
     }
 }
+
+extension Exercise {
+    static var defaultBigFive: [Exercise] {
+        let row = Exercise(name: "Row", weight: 50.0, time: 0.0, isRest: false)
+        let chestPress = Exercise(name: "Chest Press", weight: 50.0, time: 0.0, isRest: false)
+        let pullDown = Exercise(name: "Pull Down", weight: 50.0, time: 0.0, isRest: false)
+        let overheadPress = Exercise(name: "Overhead Press", weight: 20.0, time: 0.0, isRest: false)
+        let legPress = Exercise(name: "Leg Press", weight: 100.0, time: 0.0, isRest: false)
+        return [row, chestPress, pullDown, overheadPress, legPress]
+    }
+}

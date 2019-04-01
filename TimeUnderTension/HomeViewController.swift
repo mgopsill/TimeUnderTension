@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
         
         defaultWorkoutButton.backgroundColor = .gray
         defaultWorkoutButton.setTitle("Default Big Five Workout", for: .normal)
-        // TODO: Handle tap on default button
+        defaultWorkoutButton.addTarget(self, action: #selector(defaultTapped), for: .touchUpInside)
         
         let constraints: [NSLayoutConstraint] = [
             createWorkoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Factory.Insets.leadingInset),
@@ -49,7 +49,12 @@ class HomeViewController: UIViewController {
     }
     
     @objc func startTapped() {
-        let createVC = CreateWorkoutViewController()
+        let createVC = CreateWorkoutViewController(exercises: nil)
+        navigationController?.pushViewController(createVC, animated: true)
+    }
+    
+    @objc func defaultTapped() {
+        let createVC = CreateWorkoutViewController(exercises: Exercise.defaultBigFive)
         navigationController?.pushViewController(createVC, animated: true)
     }
 }
