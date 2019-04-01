@@ -44,6 +44,8 @@ class AddExerciseView: UIView {
         exerciseName.textAlignment = .center
         weight.placeholder = "0.0kg"
         weight.textAlignment = .center
+        weight.keyboardType = .decimalPad
+        weight.delegate = self
         
         saveButton.setTitle("Save", for: .normal)
         saveButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
@@ -67,5 +69,26 @@ class AddExerciseView: UIView {
         guard let exerciseName = exerciseName.text else { return }
         let exercise = Exercise(name: exerciseName, weight: Double(weight.text ?? "0.0") ?? 0.0, time: 0.0, isRest: false)
         delegate?.didSaveExercise(exercise: exercise)
+    }
+}
+
+extension AddExerciseView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let oldText = textField.text, let r = Range(range, in: oldText) else {
+            return true
+        }
+        
+        let newText = oldText.replacingCharacters(in: r, with: string)
+        let isNumeric = newText.isEmpty || (Double(newText) != nil)
+        let numberOfDots = newText.components(separatedBy: ".").count - 1
+        
+        let numberOfDecimalDigits: Int
+        if let dotIndex = newText.index(of: ".") {
+            numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
+        } else {
+            numberOfDecimalDigits = 0
+        }
+        
+        return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
     }
 }

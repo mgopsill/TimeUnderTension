@@ -107,8 +107,10 @@ extension CreateWorkoutViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCellIndex = indexPath.row - 1
-        displayEditExercise(with: exercises[indexPath.row - 1])
+        if indexPath.row != 0 { // TODO: Remove the header cell
+            selectedCellIndex = indexPath.row - 1
+            displayEditExercise(with: exercises[indexPath.row - 1])
+        }
     }
     // TODO: Ability to edit exercise from this view controller
 }
