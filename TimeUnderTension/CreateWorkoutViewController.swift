@@ -54,6 +54,7 @@ class CreateWorkoutViewController: UITableViewController {
     }
 
     @objc func rightNavBarTapped() {
+        selectedCellIndex = nil
         displayEditExercise(with: nil)
     }
     

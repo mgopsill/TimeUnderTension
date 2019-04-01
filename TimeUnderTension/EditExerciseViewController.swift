@@ -77,7 +77,6 @@ class EditExerciseViewController: UIViewController, EditExerciseDelegate {
     func didSaveExercise(exercise: Exercise) {
         delegate?.didSaveExercise(exercise: exercise)
         
-        
         UIView.animate(withDuration: 0.3, animations: {
             self.backingImageView.alpha = 1.0
             self.addc[0].constant = self.view.frame.height
