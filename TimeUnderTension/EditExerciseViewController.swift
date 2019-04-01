@@ -8,16 +8,16 @@
 
 import UIKit
 
-class EditExerciseViewController: UIViewController, AddExerciseDelegate {
+class EditExerciseViewController: UIViewController, EditExerciseDelegate {
     
     private let addExerciseView: AddExerciseView
     var backingImageView = UIView()
 
-    var delegate: AddExerciseDelegate?
+    var delegate: EditExerciseDelegate?
     var exercise: Exercise
     
-    init(exercise: Exercise) {
-        self.exercise = exercise
+    init(exercise: Exercise?) {
+        self.exercise = exercise ?? Exercise.emptyExercise
         self.addExerciseView = AddExerciseView(exercise: exercise)
         super.init(nibName: nil, bundle: nil)
     }

@@ -207,7 +207,7 @@ extension TimerViewController: UITableViewDelegate {
     }
 }
 
-extension TimerViewController: AddExerciseDelegate {
+extension TimerViewController: EditExerciseDelegate {
     func didSaveExercise(exercise: Exercise) {
         exercises[selectedCellIndex] = exercise
         tableView.reloadData()

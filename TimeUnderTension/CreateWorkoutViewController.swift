@@ -53,9 +53,11 @@ class CreateWorkoutViewController: UITableViewController {
     }
 
     @objc func rightNavBarTapped() {
-        let addExerciseViewController = AddExerciseViewController()
-        addExerciseViewController.delegate = self
-        navigationController?.pushViewController(addExerciseViewController, animated: true)
+        guard let snap = UIApplication.shared.keyWindow!.snapshotView(afterScreenUpdates: true) else { return }
+        let editExerciseViewController = EditExerciseViewController(exercise: nil)
+        editExerciseViewController.backingImageView = snap
+        editExerciseViewController.delegate = self
+        navigationController?.present(editExerciseViewController, animated: false, completion: nil)
     }
     
     @objc func startTapped() {
@@ -101,7 +103,7 @@ extension CreateWorkoutViewController {
     // TODO: Ability to edit exercise from this view controller
 }
 
-extension CreateWorkoutViewController: AddExerciseDelegate {
+extension CreateWorkoutViewController: EditExerciseDelegate {
     func didSaveExercise(exercise: Exercise) {
         exercises.append(exercise)
         tableView.reloadData()

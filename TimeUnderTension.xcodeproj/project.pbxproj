@@ -18,7 +18,6 @@
 		EE1A7E952251FC32000615F9 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A7E942251FC32000615F9 /* Exercise.swift */; };
 		EE55DC26224B95D500F3C37A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC25224B95D500F3C37A /* Extensions.swift */; };
 		EE55DC28224BA2E100F3C37A /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC27224BA2E100F3C37A /* CreateWorkoutViewController.swift */; };
-		EE55DC2A224BA82300F3C37A /* AddExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC29224BA82300F3C37A /* AddExerciseViewController.swift */; };
 		EE55DC2C224BBF7C00F3C37A /* ExerciseWeightTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC2B224BBF7C00F3C37A /* ExerciseWeightTimeCell.swift */; };
 		EE55DC2E224BC97E00F3C37A /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC2D224BC97E00F3C37A /* AddExerciseView.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 		EE1A7E942251FC32000615F9 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		EE55DC25224B95D500F3C37A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EE55DC27224BA2E100F3C37A /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
-		EE55DC29224BA82300F3C37A /* AddExerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseViewController.swift; sourceTree = "<group>"; };
 		EE55DC2B224BBF7C00F3C37A /* ExerciseWeightTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseWeightTimeCell.swift; sourceTree = "<group>"; };
 		EE55DC2D224BC97E00F3C37A /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,7 +97,6 @@
 				EE1A7E942251FC32000615F9 /* Exercise.swift */,
 				4D15C574224B717B003F7672 /* TimerViewController.swift */,
 				EE55DC2B224BBF7C00F3C37A /* ExerciseWeightTimeCell.swift */,
-				EE55DC29224BA82300F3C37A /* AddExerciseViewController.swift */,
 				4D3772F7224CB52900923F23 /* EditExerciseViewController.swift */,
 				EE55DC2D224BC97E00F3C37A /* AddExerciseView.swift */,
 				4D15C594224B8876003F7672 /* Stopwatch.swift */,
@@ -221,7 +218,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE55DC2C224BBF7C00F3C37A /* ExerciseWeightTimeCell.swift in Sources */,
-				EE55DC2A224BA82300F3C37A /* AddExerciseViewController.swift in Sources */,
 				4D15C575224B717B003F7672 /* TimerViewController.swift in Sources */,
 				4D15C595224B8876003F7672 /* Stopwatch.swift in Sources */,
 				EE55DC2E224BC97E00F3C37A /* AddExerciseView.swift in Sources */,

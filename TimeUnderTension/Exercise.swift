@@ -13,6 +13,10 @@ struct Exercise {
     var weight: Double = 0.0
     var time: TimeInterval = 0.0
     var isRest: Bool = false
+    
+    static var emptyExercise: Exercise {
+        return Exercise(name: "Exercise Name", weight: 0.0, time: 0.0, isRest: false)
+    }
 }
 
 extension Array where Element == Exercise {

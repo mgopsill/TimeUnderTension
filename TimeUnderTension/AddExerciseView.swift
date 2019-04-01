@@ -8,13 +8,17 @@
 
 import UIKit
 
+protocol EditExerciseDelegate {
+    func didSaveExercise(exercise: Exercise)
+}
+
 class AddExerciseView: UIView {
 
     private let exerciseName = UITextField()
     private let weight = UITextField()
     private let saveButton = UIButton()
     
-    var delegate: AddExerciseDelegate?
+    var delegate: EditExerciseDelegate?
     var exercise: Exercise?
     
     init(exercise: Exercise?) {
