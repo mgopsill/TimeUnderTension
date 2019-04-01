@@ -186,11 +186,14 @@ extension TimerViewController: UITableViewDataSource {
 
 extension TimerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard !exercises.isEmpty else { return }
         selectedCellIndex = indexPath.row
         let exercise = exercises[selectedCellIndex]
         let vc = EditExerciseViewController(exercise: exercise)
+        guard let snap = UIApplication.shared.keyWindow!.snapshotView(afterScreenUpdates: true) else { return }
+        vc.backingImageView = snap
         vc.delegate = self
-        navigationController?.present(vc, animated: true, completion: nil)
+        navigationController?.present(vc, animated: false, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
