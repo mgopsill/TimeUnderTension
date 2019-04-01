@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Exercise {
+struct Exercise: Equatable {
     let name: String
     var weight: Double = 0.0
     var time: TimeInterval = 0.0
@@ -16,6 +16,10 @@ struct Exercise {
     
     static var emptyExercise: Exercise {
         return Exercise(name: "Exercise Name", weight: 0.0, time: 0.0, isRest: false)
+    }
+    
+    public static func ==(lhs: Exercise, rhs: Exercise) -> Bool {
+        return lhs.name == rhs.name && lhs.weight == rhs.weight && lhs.time == rhs.time && lhs.isRest == rhs.isRest
     }
 }
 

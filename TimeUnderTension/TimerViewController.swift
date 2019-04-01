@@ -44,6 +44,8 @@ class TimerViewController: UIViewController {
         setupConstraints()
         
         stopWatch.delegate = self
+        
+        // TODO: Handle closing app and restarting the timer at the current time 
     }
     
     private func addViews() {

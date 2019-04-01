@@ -12,6 +12,7 @@ class CreateWorkoutViewController: UITableViewController {
     
     private var exercises: [Exercise] = []
     private let startButton = Factory.Button.blueButton
+    private var selectedCellIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,16 +54,20 @@ class CreateWorkoutViewController: UITableViewController {
     }
 
     @objc func rightNavBarTapped() {
-        guard let snap = UIApplication.shared.keyWindow!.snapshotView(afterScreenUpdates: true) else { return }
-        let editExerciseViewController = EditExerciseViewController(exercise: nil)
-        editExerciseViewController.backingImageView = snap
-        editExerciseViewController.delegate = self
-        navigationController?.present(editExerciseViewController, animated: false, completion: nil)
+        displayEditExercise(with: nil)
     }
     
     @objc func startTapped() {
         let timerViewController = TimerViewController(exercises: exercises.asExercisesWithRest)
         navigationController?.pushViewController(timerViewController, animated: true)
+    }
+    
+    private func displayEditExercise(with exercise: Exercise?) {
+        guard let snap = UIApplication.shared.keyWindow!.snapshotView(afterScreenUpdates: true) else { return }
+        let editExerciseViewController = EditExerciseViewController(exercise: exercise)
+        editExerciseViewController.backingImageView = snap
+        editExerciseViewController.delegate = self
+        navigationController?.present(editExerciseViewController, animated: false, completion: nil)
     }
 }
 
@@ -87,6 +92,7 @@ extension CreateWorkoutViewController {
             cell.detailTextLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
             return cell
         } else {
+            // TODO: Stop using TableViewCell as header
             cell.textLabel?.text = exercises[indexPath.row - 1].name
             cell.detailTextLabel?.text = String(exercises[indexPath.row - 1].weight) + "kg"
             return cell
@@ -100,12 +106,20 @@ extension CreateWorkoutViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCellIndex = indexPath.row - 1
+        displayEditExercise(with: exercises[indexPath.row - 1])
+    }
     // TODO: Ability to edit exercise from this view controller
 }
 
 extension CreateWorkoutViewController: EditExerciseDelegate {
     func didSaveExercise(exercise: Exercise) {
-        exercises.append(exercise)
+        if let selectedCellIndex = selectedCellIndex {
+            exercises[selectedCellIndex] = exercise
+        } else {
+            exercises.append(exercise)
+        }
         tableView.reloadData()
     }
 }

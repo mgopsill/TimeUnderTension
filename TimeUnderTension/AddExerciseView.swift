@@ -15,8 +15,8 @@ protocol EditExerciseDelegate {
 class AddExerciseView: UIView {
 
     private let exerciseName = UITextField()
-    private let weight = UITextField()
-    private let saveButton = UIButton()
+    private let weight = UITextField() // TODO: when updating weight only allow numbers
+    private let saveButton = Factory.Button.blueButton
     
     var delegate: EditExerciseDelegate?
     var exercise: Exercise?
@@ -46,7 +46,6 @@ class AddExerciseView: UIView {
         weight.textAlignment = .center
         
         saveButton.setTitle("Save", for: .normal)
-        saveButton.backgroundColor = .blue
         saveButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
         
         let constraints: [NSLayoutConstraint] = [
