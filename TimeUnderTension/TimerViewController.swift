@@ -131,6 +131,9 @@ class TimerViewController: UIViewController {
             stopWatch.start()
             startStopButton.isSelected = true
             resetLapButton.setTitle("Lap", for: .normal)
+            if exercises.isEmpty && laps.isEmpty {
+                createNewLap()
+            }
         } else if stopWatch.state == .running {
             stopWatch.pause()
             startStopButton.isSelected = false
@@ -147,29 +150,45 @@ class TimerViewController: UIViewController {
             stopWatch.lap()
         }
     }
+    
+    private func createNewLap() {
+        laps.append(0.0)
+        tableView.reloadData()
+    }
 }
 
 extension TimerViewController: StopwatchDelegate {
     func updateView(with interval: TimeInterval) {
         timerLabel.text = interval.asStopwatchString
-        let numberOfCells = (!exercises.isEmpty ? exercises.count : laps.count) - 1
-        if exercises.isEmpty {
-            guard let cell = tableView.cellForRow(at: IndexPath(row: numberOfCells, section: 0)) else { return }
-            cell.textLabel?.text = interval.asStopwatchString
-            cell.detailTextLabel?.text = interval.asStopwatchString
+        if !exercises.isEmpty {
+            updateExerciseCell(with: interval)
+        } else {
+            updateLapCell(with: interval)
         }
+    }
+    
+    private func updateExerciseCell(with interval: TimeInterval) {
+        let numberOfCells = exercises.count - 1
         guard let cell = tableView.cellForRow(at: IndexPath(row: numberOfCells, section: 0)) as? ExerciseWeightTimeCell else { return }
         var exercise = exercises[numberOfCells]
         exercise.time = interval
         cell.configure(for: exercise)
     }
     
+    private func updateLapCell(with interval: TimeInterval) {
+        let numberOfCells = laps.count - 1
+        guard let cell = tableView.cellForRow(at: IndexPath(row: numberOfCells, section: 0)) else { return }
+        cell.textLabel?.text = interval.asStopwatchString
+        cell.detailTextLabel?.text = interval.asStopwatchString
+    }
+    
     func handleLatestLap(interval: TimeInterval) {
         if laps.count < exercises.count {
             exercises[laps.count].time = interval
         }
+        laps.removeLast()
         laps.append(interval)
-        tableView.reloadData()
+        createNewLap()
     }
 }
 

@@ -25,7 +25,6 @@ struct Exercise: Equatable {
 
 extension Array where Element == Exercise {
     var asExercisesWithRest: [Exercise] {
-        // TODO: Optimise / clean this
         var newArray: [Exercise] = []
         for (index, exercise) in self.enumerated() {
             if index != self.count - 1 {
@@ -54,7 +53,6 @@ extension Exercise {
 
 
 // MARK: General TODOs
-// TODO: As Timer runs update the exercise in the list view for laps
 // TODO: Fix backgrounding issue with timer being incorrect
 // TODO: Save workouts
 // TODO: View historical workouts
