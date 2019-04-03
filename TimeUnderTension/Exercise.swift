@@ -8,11 +8,18 @@
 
 import Foundation
 
-struct Exercise: Equatable {
+class Exercise: Equatable {
     let name: String
     var weight: Double = 0.0
     var time: TimeInterval = 0.0
     var isRest: Bool = false
+    
+    init(name: String, weight: Double, time: TimeInterval, isRest: Bool) {
+        self.name = name
+        self.weight = weight
+        self.time = time
+        self.isRest = isRest
+    }
     
     static var emptyExercise: Exercise {
         return Exercise(name: "Exercise Name", weight: 0.0, time: 0.0, isRest: false)

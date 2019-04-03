@@ -36,6 +36,12 @@ class Stopwatch {
         }
     }
     
+    public func refresh() {
+        if let startDate = startDate {
+            elapsedTime = Date().timeIntervalSince(startDate)
+        }
+    }
+    
     @objc private func updateTimer() {
         elapsedTime += 0.1
         delegate?.updateView(with: elapsedTime)

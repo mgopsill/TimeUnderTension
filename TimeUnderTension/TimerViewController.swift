@@ -44,8 +44,11 @@ class TimerViewController: UIViewController {
         setupConstraints()
         
         stopWatch.delegate = self
-        
-        // TODO: Handle closing app and restarting the timer at the current time 
+        // TODO: Handle closing app and restarting the timer at the current time
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        stopWatch.refresh()
     }
     
     private func addViews() {
@@ -145,6 +148,7 @@ class TimerViewController: UIViewController {
         if stopWatch.state != .running {
             stopWatch.reset()
             laps.removeAll()
+            exercises.forEach { $0.time = 0.0 }
             tableView.reloadData()
         } else if stopWatch.state == .running {
             stopWatch.lap()
@@ -168,7 +172,7 @@ extension TimerViewController: StopwatchDelegate {
     }
     
     private func updateExerciseCell(with interval: TimeInterval) {
-        let numberOfCells = exercises.count - 1
+        let numberOfCells = laps.isEmpty ? 0 : laps.count - 1
         guard let cell = tableView.cellForRow(at: IndexPath(row: numberOfCells, section: 0)) as? ExerciseWeightTimeCell else { return }
         var exercise = exercises[numberOfCells]
         exercise.time = interval
@@ -183,11 +187,13 @@ extension TimerViewController: StopwatchDelegate {
     }
     
     func handleLatestLap(interval: TimeInterval) {
-        if laps.count < exercises.count {
-            exercises[laps.count].time = interval
+        if !laps.isEmpty {
+            laps.removeLast()
         }
-        laps.removeLast()
         laps.append(interval)
+        if laps.count < exercises.count {
+            exercises[laps.count - 1].time = interval
+        }
         createNewLap()
     }
 }
