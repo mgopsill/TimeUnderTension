@@ -75,6 +75,11 @@ class TimerViewController: UIViewController {
         resetLapButton.setTitle("Reset", for: .normal)
         resetLapButton.addTarget(self, action: #selector(resetStopwatch), for: .touchUpInside)
         
+        // TODO: Remove this temporary hack
+        let multipleTapGesture = UITapGestureRecognizer(target: self, action: #selector(clearSavedHistory))
+        multipleTapGesture.numberOfTapsRequired = 10        // Require 10 quick taps reset
+        buttonsView.addGestureRecognizer(multipleTapGesture)
+        
         startStopButton.setTitle("Start", for: .normal)
         startStopButton.setTitle("Stop", for: .selected)
         startStopButton.addTarget(self, action: #selector(startStopwatch), for: .touchUpInside)
@@ -157,7 +162,11 @@ class TimerViewController: UIViewController {
     @objc func rightNavBarTapped() {
         let workout = Workout(date: Date(), exercises: exercises)
         workoutsManager.save(workout)
-        print(workoutsManager.allWorkouts)
+        print(workoutsManager.allWorkouts.count)
+    }
+    
+    @objc func clearSavedHistory() {
+        workoutsManager.clearAll()
     }
     
     func refreshStopWatchTime() {
@@ -183,7 +192,7 @@ extension TimerViewController: StopwatchDelegate {
     private func updateExerciseCell(with interval: TimeInterval) {
         let numberOfCells = laps.isEmpty ? 0 : laps.count - 1
         guard let cell = tableView.cellForRow(at: IndexPath(row: numberOfCells, section: 0)) as? ExerciseWeightTimeCell else { return }
-        var exercise = exercises[numberOfCells]
+        let exercise = exercises[numberOfCells]
         exercise.time = interval
         cell.configure(for: exercise)
     }

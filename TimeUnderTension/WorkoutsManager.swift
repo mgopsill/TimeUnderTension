@@ -24,8 +24,8 @@ class WorkoutsManager {
     func save(_ workout: Workout) {
         let workoutKey = DefaultsKeys.workout.format(workout.date.timeIntervalSince1970.asStopwatchString)
         if let encoded = try? encoder.encode(workout) {
-            // Add to dictionary not recreate
-            let dictionary: [String: Data] = [workoutKey: encoded]
+            var dictionary: [String: Data] = defaults.object(forKey: DefaultsKeys.workouts) as? [String: Data] ?? [:]
+            dictionary[workoutKey] = encoded
             defaults.set(dictionary, forKey: DefaultsKeys.workouts)
         }
     }
@@ -40,6 +40,10 @@ class WorkoutsManager {
         } else {
             return []
         }
+    }
+    
+    func clearAll() {
+        defaults.removeObject(forKey: DefaultsKeys.workouts)
     }
 }
 
