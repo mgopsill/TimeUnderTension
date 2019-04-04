@@ -15,6 +15,7 @@
 		4D15C595224B8876003F7672 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D15C594224B8876003F7672 /* Stopwatch.swift */; };
 		4D3772F8224CB52900923F23 /* EditExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3772F7224CB52900923F23 /* EditExerciseViewController.swift */; };
 		4DB2A7DE224CDAF100C8E290 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB2A7DD224CDAF100C8E290 /* HomeViewController.swift */; };
+		EE128BE322560385006974C4 /* WorkoutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE128BE222560385006974C4 /* WorkoutsManager.swift */; };
 		EE1A7E952251FC32000615F9 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A7E942251FC32000615F9 /* Exercise.swift */; };
 		EE55DC26224B95D500F3C37A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC25224B95D500F3C37A /* Extensions.swift */; };
 		EE55DC28224BA2E100F3C37A /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC27224BA2E100F3C37A /* CreateWorkoutViewController.swift */; };
@@ -45,6 +46,7 @@
 		4D15C594224B8876003F7672 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		4D3772F7224CB52900923F23 /* EditExerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseViewController.swift; sourceTree = "<group>"; };
 		4DB2A7DD224CDAF100C8E290 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		EE128BE222560385006974C4 /* WorkoutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsManager.swift; sourceTree = "<group>"; };
 		EE1A7E942251FC32000615F9 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		EE55DC25224B95D500F3C37A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EE55DC27224BA2E100F3C37A /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				4D3772F7224CB52900923F23 /* EditExerciseViewController.swift */,
 				EE55DC2D224BC97E00F3C37A /* AddExerciseView.swift */,
 				4D15C594224B8876003F7672 /* Stopwatch.swift */,
+				EE128BE222560385006974C4 /* WorkoutsManager.swift */,
 				4D15C579224B717E003F7672 /* Assets.xcassets */,
 				4D15C57B224B717E003F7672 /* LaunchScreen.storyboard */,
 				4D15C57E224B717E003F7672 /* Info.plist */,
@@ -223,6 +226,7 @@
 				EE55DC2E224BC97E00F3C37A /* AddExerciseView.swift in Sources */,
 				4DB2A7DE224CDAF100C8E290 /* HomeViewController.swift in Sources */,
 				EE1A7E952251FC32000615F9 /* Exercise.swift in Sources */,
+				EE128BE322560385006974C4 /* WorkoutsManager.swift in Sources */,
 				EE55DC28224BA2E100F3C37A /* CreateWorkoutViewController.swift in Sources */,
 				4D15C573224B717B003F7672 /* AppDelegate.swift in Sources */,
 				EE55DC26224B95D500F3C37A /* Extensions.swift in Sources */,

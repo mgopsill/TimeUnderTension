@@ -14,6 +14,7 @@ class TimerViewController: UIViewController {
     private var selectedCellIndex: Int = 0
     private var laps: [TimeInterval] = []
     private var exercises: [Exercise]
+    private let workoutsManager = WorkoutsManager()
     
     private let timerLabel = UILabel()
     private let buttonsView = UIView()
@@ -44,6 +45,9 @@ class TimerViewController: UIViewController {
         setupConstraints()
         
         stopWatch.delegate = self
+        
+        let rightBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(rightNavBarTapped))
+        navigationItem.rightBarButtonItem = rightBarButton
     }
 
     private func addViews() {
@@ -148,6 +152,12 @@ class TimerViewController: UIViewController {
         } else if stopWatch.state == .running {
             stopWatch.lap()
         }
+    }
+    
+    @objc func rightNavBarTapped() {
+        let workout = Workout(date: Date(), exercises: exercises)
+        workoutsManager.save(workout)
+        print(workoutsManager.allWorkouts)
     }
     
     func refreshStopWatchTime() {

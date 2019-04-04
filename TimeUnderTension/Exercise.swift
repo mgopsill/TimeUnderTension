@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Exercise: Equatable {
+class Exercise: Equatable, Codable {
     let name: String
     var weight: Double = 0.0
     var time: TimeInterval = 0.0
@@ -63,3 +63,4 @@ extension Exercise {
 // TODO: Save workouts
 // TODO: View historical workouts
 // TODO: Load a historical workout
+// TODO: Swipe down dismiss pop up views
