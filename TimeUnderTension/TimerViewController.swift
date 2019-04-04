@@ -44,13 +44,8 @@ class TimerViewController: UIViewController {
         setupConstraints()
         
         stopWatch.delegate = self
-        // TODO: Handle closing app and restarting the timer at the current time
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        stopWatch.refresh()
-    }
-    
+
     private func addViews() {
         view.falsifyAutoresizingMask(for: timerLabel, buttonsView, resetLapButton, startStopButton, tableView)
         view.addSubviews(timerLabel, buttonsView, tableView)
@@ -153,6 +148,10 @@ class TimerViewController: UIViewController {
         } else if stopWatch.state == .running {
             stopWatch.lap()
         }
+    }
+    
+    func refreshStopWatchTime() {
+        stopWatch.refresh()
     }
     
     private func createNewLap() {

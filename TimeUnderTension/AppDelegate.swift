@@ -22,4 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         return true
     }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        guard let rootNavController = window?.rootViewController as? UINavigationController else { return }
+        guard let timerViewController = rootNavController.topViewController as? TimerViewController else { return }
+        timerViewController.refreshStopWatchTime()
+    }
 }

@@ -60,7 +60,6 @@ extension Exercise {
 
 
 // MARK: General TODOs
-// TODO: Fix backgrounding issue with timer being incorrect
 // TODO: Save workouts
 // TODO: View historical workouts
 // TODO: Load a historical workout

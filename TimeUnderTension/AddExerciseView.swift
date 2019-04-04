@@ -16,7 +16,7 @@ class AddExerciseView: UIView {
 
     private let titleLabel = UILabel()
     private let exerciseName = UITextField()
-    private let weight = UITextField() // TODO: when updating weight only allow numbers
+    private let weight = UITextField()
     private let saveButton = Factory.Button.defaultButton(color: .blue)
     private let kgSuffix = " kg"
     
