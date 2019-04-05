@@ -11,6 +11,10 @@ import Foundation
 struct Workout: Codable {
     let date: Date
     let exercises: [Exercise]
+    
+    var key: String {
+        return DefaultsKeys.workout.format(date.timeIntervalSince1970.asStopwatchString)
+    }
 }
 
 class WorkoutsManager {
@@ -22,7 +26,7 @@ class WorkoutsManager {
     init() { }
     
     func save(_ workout: Workout) {
-        let workoutKey = DefaultsKeys.workout.format(workout.date.timeIntervalSince1970.asStopwatchString)
+        let workoutKey = workout.key
         if let encoded = try? encoder.encode(workout) {
             var dictionary: [String: Data] = defaults.object(forKey: DefaultsKeys.workouts) as? [String: Data] ?? [:]
             dictionary[workoutKey] = encoded
@@ -31,15 +35,12 @@ class WorkoutsManager {
     }
         
     var allWorkouts: [Workout] {
-        if let dictionary = defaults.object(forKey: DefaultsKeys.workouts) as? [String: Data] {
-            let workouts = dictionary.compactMap { (_, data) -> Workout? in
-                guard let workout = try? decoder.decode(Workout.self, from: data) else { return nil }
-                return workout
-            }
-            return workouts
-        } else {
-            return []
+        guard let dictionary = defaults.object(forKey: DefaultsKeys.workouts) as? [String: Data] else { return [] }
+        let workouts = dictionary.compactMap { (_, data) -> Workout? in
+            guard let workout = try? decoder.decode(Workout.self, from: data) else { return nil }
+            return workout
         }
+        return workouts
     }
     
     func clearAll() {

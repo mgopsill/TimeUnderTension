@@ -163,6 +163,11 @@ class TimerViewController: UIViewController {
         let workout = Workout(date: Date(), exercises: exercises)
         workoutsManager.save(workout)
         print(workoutsManager.allWorkouts.count)
+        let saveAlert = UIAlertController(title: "Saved", message: nil, preferredStyle: .alert)
+        saveAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+        }))
+        present(saveAlert, animated: true, completion: nil)
     }
     
     @objc func clearSavedHistory() {
