@@ -60,6 +60,7 @@ extension Exercise {
 
 
 // MARK: General TODOs
+// TODO: PUSH :)
 // TODO: Swipe down dismiss pop up views
 // TODO: Tap on Saved Workout shows you it
 // TODO: Load a historical workout
