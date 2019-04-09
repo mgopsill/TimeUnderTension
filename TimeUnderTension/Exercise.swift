@@ -60,6 +60,5 @@ extension Exercise {
 
 
 // MARK: General TODOs
-// TODO: Move Saved Workouts VC
-// TODO: Saved Workouts TableView Control
+// TODO: Delete a saved workout
 // TODO: Redo UI for iPhone 6s
