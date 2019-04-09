@@ -60,8 +60,6 @@ extension Exercise {
 
 
 // MARK: General TODOs
-// TODO: Tap on Saved Workout shows you it
-// TODO: Load a historical workout
 // TODO: Move Saved Workouts VC
 // TODO: Saved Workouts TableView Control
 // TODO: Redo UI for iPhone 6s

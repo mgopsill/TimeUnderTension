@@ -103,22 +103,26 @@ class SavedWorkoutsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let exercises = workouts[indexPath.row].exercises
-        let vc = ViewWorkoutViewController(exercises: exercises)
+        let workout = workouts[indexPath.row]
+        let titleString = dateFormatter.string(from: workout.date)
+        let exercises = workout.exercises
+        let vc = ViewWorkoutViewController(titleString: titleString, exercises: exercises)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 class ViewWorkoutViewController: UITableViewController {
     
+    private let titleString: String
     private var exercises: [Exercise]
     private var laps: [TimeInterval]
     private var selectedCellIndex: Int = 0
     
     // TODO: Handle just laps being saved
-    init(exercises: [Exercise] = [], laps: [TimeInterval] = []) {
+    init(titleString: String, exercises: [Exercise] = [], laps: [TimeInterval] = []) {
         self.exercises = exercises
         self.laps = laps
+        self.titleString = titleString
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -127,6 +131,7 @@ class ViewWorkoutViewController: UITableViewController {
     }
     
     override func viewDidLoad() {
+        title = titleString
         tableView.register(ExerciseWeightTimeCell.self, forCellReuseIdentifier: ExerciseWeightTimeCell.identifier)
     }
     
