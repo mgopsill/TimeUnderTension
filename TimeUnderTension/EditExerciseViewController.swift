@@ -38,6 +38,7 @@ class EditExerciseViewController: UIViewController, EditExerciseDelegate {
         addExerciseView.layer.cornerRadius = 20.0
             
         setup()
+        setupSwipeDown()
     }
     
     var addc: [NSLayoutConstraint] = []
@@ -76,7 +77,16 @@ class EditExerciseViewController: UIViewController, EditExerciseDelegate {
     
     func didSaveExercise(exercise: Exercise) {
         delegate?.didSaveExercise(exercise: exercise)
-        
+        animateDismissal()
+    }
+    
+    private func setupSwipeDown() {
+        let swipeDownGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown))
+        swipeDownGestureRecognizer.direction = .down
+        addExerciseView.addGestureRecognizer(swipeDownGestureRecognizer)
+    }
+    
+    private func animateDismissal() {
         UIView.animate(withDuration: 0.3, animations: {
             self.backingImageView.alpha = 1.0
             self.addc[0].constant = self.view.frame.height
@@ -84,6 +94,9 @@ class EditExerciseViewController: UIViewController, EditExerciseDelegate {
         }) { bool in
             self.dismiss(animated: false, completion: nil)
         }
-        
+    }
+    
+    @objc private func swipedDown() {
+        animateDismissal()
     }
 }
